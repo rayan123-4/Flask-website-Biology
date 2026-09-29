@@ -2,5 +2,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p>Testing page — Hello {{ user_name }}!</p>
+  <h1>Testing page — {{ user_name }}'s DNA Protein Translator</h1>
+
+  <form method="POST">
+
+    <label for="dna_sequence">Enter DNA sequence:</label>
+
+    <br><br>
+
+    <input
+      type="text"
+      id="dna_sequence"
+      name="dna_sequence"
+      value="{{ sequence }}"
+      >
+
+      <br><br>
+
+      <button type="submit">Translate DNA</button>
+
+    </form>
+
+    {% if protein_result%}
+
+       <div class="result-box">
+      <h2>Protein Result</h2>
+
+      <p>{{ protein_result }}</p>
+    </div>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/" class="back-Home">Back to Home</a>
+
+
 {% endblock %}

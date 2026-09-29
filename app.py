@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+# Function for the DNA to protein translator
 def dna_to_protein(seq):
     # Makes input uppercase and removing space
     seq = seq.upper().strip().replace(" ", "")
@@ -68,12 +69,12 @@ def dna_to_protein(seq):
         # Add amino acid to the protein
         protein_chain.append(amino_acid)
 
-# Make sure a protein was created
-if len(protein_chain) == 0:
-            return "Error: No complete protein was found."
+    # Make sure a protein was created
+    if len(protein_chain) == 0:
+        return "Error: No complete protein was found."
 
-# Join the amino acids together
-return "-".join(protein_chain)
+    # Join the amino acids together
+    return "-".join(protein_chain)
 
 
 
@@ -117,7 +118,7 @@ def testing():
     )
 
 if __name__ == "__main__":
-    # Runs on port 8080
+    # Run live server on port 8080
     app.run(
         debug=True, port=8080
     )
