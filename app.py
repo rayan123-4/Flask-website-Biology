@@ -1,5 +1,6 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -76,7 +77,7 @@ def dna_to_protein(seq):
     # Join the amino acids together
     return "-".join(protein_chain)
 
-
+# Normal flask pages:
 
 # The main Home Page
 @app.route("/")
@@ -106,9 +107,6 @@ def testing():
             submitted_seq
         )
 
-
-
-
     user_name = "Rayan"
     return render_template(
         "testing.html",
@@ -116,6 +114,29 @@ def testing():
         sequence=submitted_seq,
         protein_result=protein_result
     )
+
+# Github pages api
+
+@app.route("/api/translate", methods=["POST"])
+def translate_api():
+
+    submitted_seq = request.form.get(
+        "dna_sequence",
+        ""
+    )
+
+    protein_result = dna_to_protein(
+        submitted_seq
+    )
+
+    response = jsonify({
+        "protein_result": protein_result
+    })
+
+    # Allow GitHub Pages to communicate with Flask
+    response.headers["Access-Control-Allow-Origin"] = "*"
+
+    return response
 
 if __name__ == "__main__":
     # Run live server on port 8080

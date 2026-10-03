@@ -13,7 +13,7 @@
 
     <h1>Rayan's DNA Protein Translator</h1>
 
-    <form>
+    <form id="dnaForm">
 
         <label for="dna_sequence">Enter DNA sequence:</label>
 
@@ -31,9 +31,63 @@
 
     </form>
 
+    <div id="result" class="result-box" style="display: none;">
+        <h2>Protein Result</h2>
+
+        <p id="proteinResult"></p>
+    </div>
+
     <br>
 
     <a href="index.html" class="back-Home">Back to Home</a>
+
+    <script>
+
+        const form = document.getElementById("dnaForm");
+
+        form.addEventListenenr("submit", async function(event) {
+
+            // Stop the normal form submission
+            event.preventDefault();
+
+            // Get DNA from the input
+            const dna = document.getElementById(
+                "dna_sequence"
+            ).value;
+
+            // Put DNA into form data
+            const data = new URLSearchParams();
+
+            data.append(
+                "dna_sequence",
+                dna
+            );
+
+            // Send DNA to Python Flask
+            const response = await fetch(
+                "YOUR-FLASK-URL/api/translate",
+                {
+                    method: "POST",
+                    body: data
+                }
+            );
+
+            // Get the Python result
+            const result = await response.json();
+
+            // Show the protein result
+            document.getElementById(
+                "proteinResult"
+            ).textContent = result.protein_result;
+
+            document.getElementById(
+                "result"
+            ).style.display = "block";
+
+        });
+
+    </script>
+
 
 </body>
 
