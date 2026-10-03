@@ -22,3 +22,6 @@ https://flask-website-biology.onrender.com/
  ```bash
  git clone https://github.com/rayan123-4/Flask-website-Biology
 ```
+
+## Some resources I used to help me start:
+ - https://www.geeksforgeeks.org/python/dna-protein-python-3/
