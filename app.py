@@ -4,22 +4,22 @@ import os
 
 app = Flask(__name__)
 
-# Main Function that takes a DNA sequence and translates it into a protein.
+# Function to translate DNA into protein.
 def dna_to_protein(seq):
-    # Makes input uppercase and removing space, so the input it easier to process.
+    # Makes input uppercase and removing spaces.
     seq = seq.upper().strip().replace(" ", "")
 
-    # Check that user entered a DNA sequence
+    # Check that something was entered.
     if len(seq) == 0:
         return "Error: Please enter a dna sequence."
 
-    # Check that the sequences is valid and contains only A, C, G, and T
+    # Check that the sequences contains only A, C, G, and T.
     for base in seq:
         if base not in "ACGT":
             return "Error: DNA can only contain A, C, G, and T."
 
-    # Genetic codon list
-    # Each group of three DNA bases (a codon) has a matching amino acid,
+    # Codon dictionary
+    # Each codon has a matching amino acid.
     codon_dictionary = {
     # A
     "AAA": "K", "AAC": "N", "AAG": "K", "AAT": "N",
@@ -46,8 +46,7 @@ def dna_to_protein(seq):
     "TTA": "L", "TTC": "F", "TTG": "L", "TTT": "F"
     }
 
-    # Find the position of the starting codon (ATG).
-    # Once found begin translating from that point.
+    # Find (ATG) start codon.
     start_position = seq.find("ATG")
 
     if start_position == -1:
@@ -56,13 +55,13 @@ def dna_to_protein(seq):
     # Storing the amino acid in an empty list.
     protein_chain = []
 
-    # Reading the DNA three bases at a time because each codon contains three bases.
+    # Reading the DNA 3 bases at a time.
     for i in range(start_position, len(seq) - 2, 3):
 
-        # Get the current three base codon from the DNA sequence.
+        # Get the current codon from the sequence.
         codon = seq[i:i + 3]
 
-        # Find the amino acid for that specific codon, through the codon dictionary list.
+        # Find the amino acid for this codon.
         amino_acid = codon_dictionary[codon]
 
         # Stop translating at a stop codon.
@@ -72,50 +71,50 @@ def dna_to_protein(seq):
         # Add amino acid to the protein chain.
         protein_chain.append(amino_acid)
 
-    # Make sure at least one amino acid was produced.
+    # Check that a protein was made.
     if len(protein_chain) == 0:
         return "Error: No complete protein was found."
 
-    # Join the amino acids together with hyphens, so that it is easy for the user to read it.
+    # Join the amino acids together.
     return "-".join(protein_chain)
 
-# Normal flask pages:
+# Flask pages:
 
-# The route for the main Home Page
+# Home page route.
 @app.route("/")
 def index():
-    # Name displayed on the website.
+    # Name used on page title.
     user_name = "Rayan"
     return render_template(
         "index.html", user_name=user_name
     )
 
-# The route for the testing page route.
-# It accepts a POST (dna result) and when the testing page is opened.
+# Testing page route
+# Opens the page and POST sends dna sequence.
 @app.route("/testing", methods=["GET", "POST"])
 def testing():
-    # These are empty until user submitted their sequence.
+    # These are empty until user submits the dna.
     protein_result = None
     submitted_seq = ""
 
     # Check if the DNA sequence was submitted.
     if request.method == "POST":
 
-        # Get the DNA sequence from the form.
-        # Name matches the html input field.
+        # Get the DNA from the  form.
+        # dna_sequence same as html name.
         submitted_seq = request.form.get(
             "dna_sequence",
             ""
         )
 
-        # Send the submitted DNA sequence to Python, to translate it.
+        # Send the submitted DNA sequence to the translator.
         protein_result = dna_to_protein(
             submitted_seq
         )
 
     user_name = "Rayan"
 
-    # Send the user input and protein result back to the testing.html
+    # Send the user input and result to the testing.html.
     return render_template(
         "testing.html",
         user_name=user_name,
@@ -124,27 +123,27 @@ def testing():
     )
 
 # Github pages api route.
-# It recieves DNA from Javascript and returns the result from the Python translator.
+# It gets dna from Javascirpt and send to Python result.
 @app.route("/api/translate", methods=["POST"])
 def translate_api():
 
-    # Get the DNA sequence from the frontend
+    # Get the DNA sent from website.
     submitted_seq = request.form.get(
         "dna_sequence",
         ""
     )
 
-    # Use the same Python function to translate the DNA sequence.
+    # Translate using the python function.
     protein_result = dna_to_protein(
         submitted_seq
     )
 
-    # Creates a JSON response containing the translated result.
+    # Send result back as JSON
     response = jsonify({
         "protein_result": protein_result
     })
 
-    # Allow GitHub Pages to communicate with Flask backend.
+    # Allow GitHub Pages to access the api.
     response.headers["Access-Control-Allow-Origin"] = "*"
 
     return response

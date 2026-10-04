@@ -46,26 +46,24 @@
         const form = document.getElementById("dnaForm");
 
         form.addEventListener("submit", async function(event) {
-            // Prevents browser from submitting the form normally.
-            // Stop the page from refreshing and lets Javascript handle sending the DNA to the Flask backend.
+            // Stops page from refreshing.
             event.preventDefault();
 
-            // Find the DNA inout box and get the text the user entered.
+            // Get dna from input.
             const dna = document.getElementById(
                 "dna_sequence"
             ).value;
 
-            // Put DNA into form data so that the DNA can be sent to Flask so that Python can read it.
+            // Put DNA into form data.
             const data = new URLSearchParams();
 
-            // Add DNA sequence to the form data using dna_sequence, which matches the name Flask looks for.
+            // Add DNA sequence using flask.
             data.append(
                 "dna_sequence",
                 dna
             );
 
-            // Send DNA sequence to the Python flask backend.
-            // POST method is used because we are sending information to the backend, so that it can translate it.
+            // Send DNA sequence to the flask backend.
             const response = await fetch(
             "/api/translate",
                 {
@@ -74,15 +72,15 @@
                 }
             );
 
-            // Wait for flask to send back the response then convert the JSON response into Javascript data.
+            // Get result from flask.
             const result = await response.json();
 
-            // Find protein result element and replace the text with the protein result returned by Python.
+            // Show protein result.
             document.getElementById(
                 "proteinResult"
             ).textContent = result.protein_result;
 
-            // Make the result visible in the html, so we can see the protein result from the Flask backend.
+            // Show result box in website.
             document.getElementById(
                 "result"
             ).style.display = "block";
