@@ -45,7 +45,7 @@
 
         const form = document.getElementById("dnaForm");
 
-        form.addEventListenenr("submit", async function(event) {
+        form.addEventListener("submit", async function(event) {
             // Prevents browser from submitting the form normally.
             // Stop the page from refreshing and lets Javascript handle sending the DNA to the Flask backend.
             event.preventDefault();
@@ -67,7 +67,7 @@
             // Send DNA sequence to the Python flask backend.
             // POST method is used because we are sending information to the backend, so that it can translate it.
             const response = await fetch(
-            "https://flask-website-biology.onrender.com/api/translate",
+            "/api/translate",
                 {
                     method: "POST",
                     body: data
