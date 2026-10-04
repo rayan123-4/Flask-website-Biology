@@ -46,24 +46,26 @@
         const form = document.getElementById("dnaForm");
 
         form.addEventListenenr("submit", async function(event) {
-
-            // Stop the normal form submission
+            // Prevents browser from submitting the form normally.
+            // Stop the page from refreshing and lets Javascript handle sending the DNA to the Flask backend.
             event.preventDefault();
 
-            // Get DNA from the input
+            // Find the DNA inout box and get the text the user entered.
             const dna = document.getElementById(
                 "dna_sequence"
             ).value;
 
-            // Put DNA into form data
+            // Put DNA into form data so that the DNA can be sent to Flask so that Python can read it.
             const data = new URLSearchParams();
 
+            // Add DNA sequence to the form data using dna_sequence, which matches the name Flask looks for.
             data.append(
                 "dna_sequence",
                 dna
             );
 
-            // Send DNA to Python Flask
+            // Send DNA sequence to the Python flask backend.
+            // POST method is used because we are sending information to the backend, so that it can translate it.
             const response = await fetch(
             "https://flask-website-biology.onrender.com/api/translate",
                 {
@@ -72,14 +74,15 @@
                 }
             );
 
-            // Get the Python result
+            // Wait for flask to send back the response then convert the JSON response into Javascript data.
             const result = await response.json();
 
-            // Show the protein result
+            // Find protein result element and replace the text with the protein result returned by Python.
             document.getElementById(
                 "proteinResult"
             ).textContent = result.protein_result;
 
+            // Make the result visible in the html, so we can see the protein result from the Flask backend.
             document.getElementById(
                 "result"
             ).style.display = "block";
