@@ -1,6 +1,5 @@
 
 from flask import Flask, render_template, request, jsonify
-import os
 import itertools as it
 
 app = Flask(__name__)
@@ -127,40 +126,61 @@ def index():
     user_name = "Rayan"
     return render_template("index.html", user_name=user_name)
 
-# Testing page route
-# Opens the page and POST sends dna or protein sequence.
-@app.route("/testing", methods=["GET", "POST"])
-def testing():
-    # These are empty until user submits the dna or protein.
+# Dna testing.
+@app.route("/dna-testing", methods=["GET", "POST"])
+def dna_testing():
+    # These are empty until user submits dna.
     protein_result = None
-    dna_result = None
     submitted_dna_seq = ""
-    submitted_protein_seq = ""
 
     # Check if the DNA sequence was submitted.
     if request.method == "POST":
 
-        # Get the DNA or protein from the  form.
+        # Get the DNA from the form.
         submitted_dna_seq = request.form.get("dna_sequence", "")
-        submitted_protein_seq = request.form.get("protein_sequence", "")
 
         # Send the submitted DNA sequence to the translator.
         protein_result = dna_to_protein(submitted_dna_seq)
 
+    user_name = "Rayan"
+
+    # Send the DNA and result html.
+    return render_template(
+        "dna_testing.html",
+        user_name=user_name,
+        dna_sequence=submitted_dna_seq,
+        protein_result=protein_result
+    )
+
+# Protein testing.
+@app.route("/protein-testing", methods=["GET", "POST"])
+def protein_testing():
+    # These are empty until user submits protein.
+    dna_result = None
+    submitted_protein_seq = ""
+
+    # Check if the protein sequence was submitted.
+    if request.method == "POST":
+
+        # Get the protein from the form.
+        submitted_protein_seq = request.form.get(
+            "protein_sequence", ""
+        )
+
         # Send the submitted protein sequence to the translator.
-        dna_result = back_translate_to_dna(submitted_protein_seq)
+        dna_result = back_translate_to_dna(
+            submitted_protein_seq
+        )
 
     user_name = "Rayan"
 
-    # Send the user input and result to the testing.html.
+    # Send the protein and result to html.
     return render_template(
-        "testing.html",
+        "protein_testing.html",
         user_name=user_name,
-        dna_sequence=submitted_dna_seq,
         protein_sequence=submitted_protein_seq,
-        protein_result=protein_result,
         dna_result=dna_result
-        )
+    )
 
 # Github pages api routes:
 # It gets dna from javascript and send to python result.

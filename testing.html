@@ -17,72 +17,127 @@
 
         <label for="dna_sequence">Enter DNA sequence:</label>
 
-        <br><br>
-
         <input
             type="text"
             id="dna_sequence"
             name="dna_sequence"
         >
 
-        <br><br>
-
         <button type="submit">Translate DNA</button>
 
     </form>
 
-    <div id="result" class="result-box" style="display: none;">
+    <div id="proteinResultBox" class="protein-result-box" style="display: none;">
         <h2>Protein Result</h2>
 
         <p id="proteinResult"></p>
     </div>
 
-    <br>
+
+    <form id="proteinForm">
+
+        <label for="protein_sequence">Enter Protein sequence:</label>
+
+        <input
+            type="text"
+            id="protein_sequence"
+            name="protein_sequencee"
+        >
+
+        <button type="submit">Translate Protein</button>
+
+    </form>
+
+    <div id="dnaResultBox" class="dna-result-box" style="display: none;">
+        <h2>DNA Result</h2>
+
+        <p id="dnaResult"></p>
+    </div>
 
     <a href="index.html" class="back-Home">Back to Home</a>
 
     <script>
 
-        const form = document.getElementById("dnaForm");
+        // DNA to Protein:
 
-        form.addEventListener("submit", async function(event) {
+        // Get dna form
+        const dnaForm = document.getElementById("dnaForm");
+
+        dnaForm.addEventListener("submit", async function(event) {
             // Stops page from refreshing.
             event.preventDefault();
 
             // Get dna from input.
-            const dna = document.getElementById(
-                "dna_sequence"
-            ).value;
+            const dna = document.getElementById("dna_sequence").value;
 
             // Put DNA into form data.
-            const data = new URLSearchParams();
+            const dnaData = new URLSearchParams();
 
             // Add DNA sequence using flask.
-            data.append(
-                "dna_sequence",
-                dna
-            );
+            dnaData.append("dna_sequence",dna);
 
             // Send DNA sequence to the flask backend.
-            const response = await fetch(
-            "/api/translate",
+            const dnaResponse = await fetch(
+                "/api/translate",
                 {
                     method: "POST",
-                    body: data
+                    body: dnaData
                 }
             );
 
             // Get result from flask.
-            const result = await response.json();
+            const proteinResult = await dnaResponse.json();
 
             // Show protein result.
             document.getElementById(
                 "proteinResult"
-            ).textContent = result.protein_result;
+            ).textContent = proteinResult.protein_result;
 
             // Show result box in website.
             document.getElementById(
-                "result"
+                "proteinResultBox"
+            ).style.display = "block";
+
+        });
+
+        // Protein to DNA:
+
+        // Get protein form.
+        const proteinForm = document.getElementById("proteinForm");
+
+        proteinForm.addEventListener("submit", async function(event){
+            // Stops page from refreshing.
+            event.preventDefault();
+
+            // Get protein from input.
+            const protein = document.getElementById("protein_sequence").value;
+
+            // Put protein into form data.
+            const proteinData = new URLSearchParams();
+
+            // Add protein sequence using flask.
+            proteinData.append("protein_sequence", protein);
+
+            // Send protein sequence to the flask backend.
+            const proteinResponse = await fetch(
+                "/api/back-translate",
+                {
+                    method: "POST",
+                    body: proteinData
+                }
+            );
+
+            // Get result from flask.
+            const dnaResult = await proteinResponse.json();
+
+            // Show protein result.
+            document.getElementById(
+                "dnaResult"
+            ).textContent = dnaResult.dna_result.join("\n");
+
+            // Show result box in website.
+            document.getElementById(
+                "dnaResultBox"
             ).style.display = "block";
 
         });
