@@ -24,5 +24,6 @@ https://bio.rayan123-4.hackclub.app/
  git clone https://github.com/rayan123-4/Flask-website-Biology
 ```
 
-## Some resources I used to help me start:
+## Some resources I used:
+ - https://pixabay.com/vectors/dna-helix-circles-4043148/
  - https://www.geeksforgeeks.org/python/dna-protein-python-3/
