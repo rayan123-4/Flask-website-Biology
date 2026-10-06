@@ -27,3 +27,4 @@ https://bio.rayan123-4.hackclub.app/
 ## Some resources I used:
  - https://pixabay.com/vectors/dna-helix-circles-4043148/
  - https://www.geeksforgeeks.org/python/dna-protein-python-3/
+ - https://stackoverflow.com/questions/63610337/conversion-of-protein-sequence-to-dna-using-python
