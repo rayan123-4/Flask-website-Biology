@@ -114,6 +114,11 @@ def back_translate_to_dna(aa_sequence: str) -> list:
     }
 
     # Makes invaid protein cause an eror message.
+    # Check that the user entered something.
+    if len(aa_sequence) == 0:
+        return "Error: Please enter a protein."
+
+
     for aa in aa_sequence:
         if aa not in back_translate_code:
             return f"Error: '{aa}' is not a valid protein symbol."

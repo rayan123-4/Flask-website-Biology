@@ -17,7 +17,7 @@
       value="{{ dna_sequence }}"
       >
 
-      <br><br>
+    <br><br>
 
       <button type="submit">Translate DNA</button>
 
@@ -31,9 +31,17 @@
       <p>{{ protein_result }}</p>
     </div>
 
+    {% if protein_result.startswith("Error:") %}
+    <script>
+        const input = document.getElementById("dna_sequence");
+        input.classList.add("error");
+    </script>
+
     {% endif %}
 
-    <br>
+    {% endif %}
+
+  <br>
 
     <a href="/" class="back-Home">Back to Home</a>
 

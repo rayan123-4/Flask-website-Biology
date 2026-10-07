@@ -77,7 +77,26 @@
                 "dnaResultBox"
             ).style.display = "block";
 
-        });
+        // Error animation.
+
+        if (dnaResult.dna_result.startsWith("Error:")) {
+
+            // get dna input
+              const input = document.getElementById("protein_sequence")
+
+              input.classList.remove("error");
+
+              // Animation can happen multiple times now
+              void input.offsetWidth;
+
+              input.classList.add("error");
+
+        } else {
+
+                document.getElementById("protein_sequence").classList.remove("error")
+            }
+
+});
 
     </script>
 
