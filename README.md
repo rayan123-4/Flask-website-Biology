@@ -6,7 +6,8 @@ This is  my first flask website that I have using **HTML**, **CSS**, and **Pytho
 - Or the other way around if your doing the protein to DNA.
 - This website is made for the Stardance challenge by hack club.
 - (note: it used to be for Phantom, but I decided to change it for Stardance. I didn't get any rewards from the Phantom, and I didn't ship the project. I did not double dip.)
-<img width="1365" height="658" alt="Screenshot 2026-10-03 16 27 37" src="https://github.com/user-attachments/assets/9150a999-214e-4632-9a2a-35716261ae71" />
+<img width="1365" height="767" alt="Screenshot 2026-10-07 20 48 49" src="https://github.com/user-attachments/assets/ecb600e4-14eb-49c7-9d76-1baa8e6c1351" />
+
 
 ## Try it here:
 https://bio.rayan123-4.hackclub.app/
