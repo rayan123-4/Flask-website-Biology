@@ -3,7 +3,7 @@ body {
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 40px;
-    font-weight: 1000;
+    font-weight: 700;
 }
 
 .dna-background {
@@ -15,34 +15,35 @@ body {
     left: 50%;
     transform: translate(-50%, -50%) rotate(90deg);
     z-index: -1;
+    opacity: 0.85;
 }
 
 h1 {
     margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 p {
     font-size: 18px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 label {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-  input {
+input {
     padding: 10px;
     width: 300px;
     border-radius: 8px;
     border: 1px solid black;
 }
 
-  input:focus {
+input:focus {
     outline: none;
     border: 2px solid #39ff14;
     box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
@@ -52,24 +53,24 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 8px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
 }
 
 button:hover {
-    scale: 1.1;
+    transform: scale(1.1);
     filter: drop-shadow(0 0 12px #39ff14);
 }
 
 a:hover {
-    scale: 1.1;
+    transform: scale(1.1);
     filter: drop-shadow(0 0 12px #39ff14);
 }
 
 a {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: -10px;
     padding: 10px 20px;
     cursor: pointer;
     background-color: whitesmoke;
@@ -78,9 +79,8 @@ a {
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
     text-decoration: none;
+    color: darkpurple;
 }
-
-
 
 
 .back-Home {
@@ -89,8 +89,15 @@ a {
     right: 20px;
 }
 
+.switcher {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+}
+
 .result-box {
-    background-color: white;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
     padding: 20px;
     margin: 30px auto;
     width: fit-content;
@@ -116,4 +123,11 @@ a {
 
 #dnaResult {
     white-space: pre-line;
+}
+
+.result-box p {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 8px 0;
 }

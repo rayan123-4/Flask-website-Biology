@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Rayan's DNA Protein Translator</title>
+    <title>Rayan's DNA to Protein Translator</title>
     <link rel="stylesheet" href="static/main.css">
 </head>
 
@@ -11,7 +11,7 @@
 
     <img src="static/Images/dnaBackground.png" class="dna-background">
 
-    <h1>Rayan's DNA Protein Translator</h1>
+    <h1>Rayan's DNA to Protein Translator</h1>
 
     <form id="dnaForm">
 
@@ -33,31 +33,10 @@
         <p id="proteinResult"></p>
     </div>
 
-
-    <form id="proteinForm">
-
-        <label for="protein_sequence">Enter Protein sequence:</label>
-
-        <input
-            type="text"
-            id="protein_sequence"
-            name="protein_sequencee"
-        >
-
-        <button type="submit">Translate Protein</button>
-
-    </form>
-
-    <div id="dnaResultBox" class="dna-result-box" style="display: none;">
-        <h2>DNA Result</h2>
-
-        <p id="dnaResult"></p>
-    </div>
-
     <a href="index.html" class="back-Home">Back to Home</a>
+    <a href="protein_testing.html">Protein to DNA</a>
 
     <script>
-
         // DNA to Protein:
 
         // Get dna form
@@ -100,50 +79,8 @@
 
         });
 
-        // Protein to DNA:
-
-        // Get protein form.
-        const proteinForm = document.getElementById("proteinForm");
-
-        proteinForm.addEventListener("submit", async function(event){
-            // Stops page from refreshing.
-            event.preventDefault();
-
-            // Get protein from input.
-            const protein = document.getElementById("protein_sequence").value;
-
-            // Put protein into form data.
-            const proteinData = new URLSearchParams();
-
-            // Add protein sequence using flask.
-            proteinData.append("protein_sequence", protein);
-
-            // Send protein sequence to the flask backend.
-            const proteinResponse = await fetch(
-                "/api/back-translate",
-                {
-                    method: "POST",
-                    body: proteinData
-                }
-            );
-
-            // Get result from flask.
-            const dnaResult = await proteinResponse.json();
-
-            // Show protein result.
-            document.getElementById(
-                "dnaResult"
-            ).textContent = dnaResult.dna_result.join("\n");
-
-            // Show result box in website.
-            document.getElementById(
-                "dnaResultBox"
-            ).style.display = "block";
-
-        });
 
     </script>
-
 
 </body>
 

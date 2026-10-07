@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user_name }}'s Protein to DNA Translator</h1>
+
+<p>Enter a Protein sequence and translate it into DNA.</p>
+<p>The Translator shows all possibilites for that Protein sequence, so I would suggest keeping the sequence short.</p>
+
+<form method="POST">
+
+<label for="protein_sequence">Enter Protein sequence:</label>
+
+<br><br>
+
+<input
+type="text"
+id="protein_sequence"
+name="protein_sequence"
+value="{{ protein_sequence }}"
+>
+
+<br><br>
+
+<button type="submit">Translate Protein</button>
+
+</form>
+
+{% if dna_result %}
+
+<div class="result-box">
+<h2>DNA Result</h2>
+
+{% for dna in dna_result %}
+<p>{{ dna }}</p>
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+<br>
+
+<a href="/" class="back-Home">Back to Home</a>
+
+<a href="/dna-testing" class="switcher">DNA to Protein</a>
+
+{% endblock %}

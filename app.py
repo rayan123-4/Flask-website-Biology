@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 # Function to translate DNA into protein.
 def dna_to_protein(seq):
-    # Makes input uppercase and removing spaces.
+    # Makes the input uppercase and removing spaces.
     seq = seq.upper().strip().replace(" ", "")
     seq = seq.replace("\n", "").replace("\r", "")
 
-    # Check that something was entered.
+    # Check that the user entered something.
     if len(seq) == 0:
         return "Error: Please enter a dna sequence."
 
@@ -56,20 +56,20 @@ def dna_to_protein(seq):
     # Storing the amino acid in an empty list.
     protein_chain = []
 
-    # Reading the DNA 3 bases at a time.
+    # Reading the DNA 3 bases/letters at a time.
     for i in range(start_position, len(seq) - 2, 3):
 
-        # Get the current codon from the sequence.
+        # Gets the current codon from the sequence.
         codon = seq[i:i + 3]
 
-        # Find the amino acid for this codon.
+        # Finds the amino acid for this codon.
         amino_acid = codon_dictionary[codon]
 
-        # Stop translating at a stop codon.
+        # Stops translating at a stop codon.
         if amino_acid == "_":
             break
 
-        # Add amino acid to the protein chain.
+        # Adds the amino acid to the protein chain.
         protein_chain.append(amino_acid)
 
     # Check that a protein was made.
@@ -81,40 +81,53 @@ def dna_to_protein(seq):
 
 # Function to translate Protein into DNA.
 def back_translate_to_dna(aa_sequence: str) -> list:
+    # Makes the input uppercase and removing spaces.
+    aa_sequence = aa_sequence.upper().strip().replace(" ", "")
+    aa_sequence = aa_sequence.replace("\n", "").replace("\r", "")
 
-        # List of protein to dna possibilities.
-        back_translate_code = {
-            'A': ['GCA', 'GCC', 'GCG', 'GCT'],
-            'C': ['TGT', 'TGC'],
-            'D': ['GAC', 'GAT'],
-            'E': ['GAG', 'GAA'],
-            'F': ['TTT', 'TTC'],
-            'G': ['GGT', 'GGG', 'GGA', 'GGC'],
-            'H': ['CAT', 'CAC'],
-            'I': ['ATC', 'ATA', 'ATT'],
-            'K': ['AAG', 'AAA'],
-            'L': ['CTT', 'CTG', 'CTA', 'CTC', 'TTA', 'TTG'],
-            'M': ['ATG'],
-            'N': ['AAC', 'AAT'],
-            'P': ['CCT', 'CCG', 'CCA', 'CCC'],
-            'Q': ['CAA', 'CAG'],
-            'R': ['AGG', 'AGA', 'CGA', 'CGC', 'CGG', 'CGT'],
-            'S': ['AGC', 'AGT', 'TCT', 'TCG', 'TCC', 'TCA'],
-            'T': ['ACA', 'ACG', 'ACT', 'ACC'],
-            'V': ['GTA', 'GTC', 'GTG', 'GTT'],
-            'W': ['TGG'],
-            'Y': ['TAT', 'TAC'],
-            '_': ['TAA', 'TGA', 'TAG']
-        }
+    # Remove hyphen
+    aa_sequence = aa_sequence.replace("-", "")
 
-        list_of_list_of_codons = [back_translate_code[aa] for aa in aa_sequence]
+    # List of protein to dna possibilities.
+    back_translate_code = {
+        'A': ['GCA', 'GCC', 'GCG', 'GCT'],
+        'C': ['TGT', 'TGC'],
+        'D': ['GAC', 'GAT'],
+        'E': ['GAG', 'GAA'],
+        'F': ['TTT', 'TTC'],
+        'G': ['GGT', 'GGG', 'GGA', 'GGC'],
+        'H': ['CAT', 'CAC'],
+        'I': ['ATC', 'ATA', 'ATT'],
+        'K': ['AAG', 'AAA'],
+        'L': ['CTT', 'CTG', 'CTA', 'CTC', 'TTA', 'TTG'],
+        'M': ['ATG'],
+        'N': ['AAC', 'AAT'],
+        'P': ['CCT', 'CCG', 'CCA', 'CCC'],
+        'Q': ['CAA', 'CAG'],
+        'R': ['AGG', 'AGA', 'CGA', 'CGC', 'CGG', 'CGT'],
+        'S': ['AGC', 'AGT', 'TCT', 'TCG', 'TCC', 'TCA'],
+        'T': ['ACA', 'ACG', 'ACT', 'ACC'],
+        'V': ['GTA', 'GTC', 'GTG', 'GTT'],
+        'W': ['TGG'],
+        'Y': ['TAT', 'TAC'],
+        '_': ['TAA', 'TGA', 'TAG']
+    }
 
-        list_of_combinations = [
-        ''.join(combination)
-        for combination in it.product(*list_of_list_of_codons)
-        ]
+    # Makes invaid protein cause an eror message.
+    for aa in aa_sequence:
+        if aa not in back_translate_code:
+            return f"Error: '{aa}' is not a valid protein symbol."
 
-        return list_of_combinations
+    # This looks for codon for amino acid.
+    list_of_list_of_codons = [back_translate_code[aa] for aa in aa_sequence]
+
+    # This will get all of the combinations for the dna..
+    list_of_combinations = [
+    ''.join(combination)
+    for combination in it.product(*list_of_list_of_codons)
+    ]
+
+    return list_of_combinations
 
 
 # Flask pages:
@@ -122,7 +135,7 @@ def back_translate_to_dna(aa_sequence: str) -> list:
 # Home page route.
 @app.route("/")
 def index():
-    # Name used on page title.
+    # My name used on page title.
     user_name = "Rayan"
     return render_template("index.html", user_name=user_name)
 
@@ -220,5 +233,5 @@ def back_translate_api():
     return dna_response
 
 if __name__ == "__main__":
-    # Run live server on port 8080.
+    # Run live server on port 8080, so I can test without always needing to commit.
     app.run(host="0.0.0.0", port=8080, debug=True)
