@@ -43,6 +43,7 @@ input {
     border: 1px solid black;
     transition: 300ms;
     background-color: #dee2e6;
+    z-index: 1;
 }
 
 input:focus {
@@ -71,6 +72,7 @@ button {
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
     background-color: #dee2e6;
+    z-index: 1;
 }
 
 button:hover {
@@ -94,6 +96,7 @@ a {
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
     text-decoration: none;
+    z-index: 1;
 }
 
 
@@ -101,12 +104,14 @@ a {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
 }
 
 .switcher {
     position: absolute;
     top: 80px;
     right: 20px;
+    z-index: 1;
 }
 
 .result-box {
@@ -119,6 +124,7 @@ a {
     border-radius: 8px;
     border: 1px solid black;
     animation: resultPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2;
 }
 
 @keyframes resultPop {
@@ -151,6 +157,7 @@ a {
     top: 180px;
     left: 760px;
     background-color: #dee2e6;
+    z-index: 1;
 }
 
 .front-Link2 {
@@ -158,4 +165,5 @@ a {
     top: 180px;
     left: 480px;
     background-color: #dee2e6;
+    z-index: 1;
 }
