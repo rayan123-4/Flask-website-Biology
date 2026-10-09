@@ -20,20 +20,20 @@ body {
 
 h1 {
     margin-bottom: 10px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 1px 2px black;
 }
 
 p {
     font-size: 18px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 2px black;
 }
 
 h2 {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 1px 2px black;
 }
 
 label {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 2px black;
 }
 
 input {
@@ -42,6 +42,7 @@ input {
     border-radius: 8px;
     border: 1px solid black;
     transition: 300ms;
+    background-color: #dee2e6;
 }
 
 input:focus {
@@ -54,6 +55,7 @@ input:focus {
 input.error {
     border-color: #f00;
     animation: shake 300ms;
+    box-shadow: 0 0 10px #f00;
 }
 
 @keyframes shake {
@@ -65,9 +67,10 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
+    background-color: #dee2e6;
 }
 
 button:hover {
@@ -85,13 +88,12 @@ a {
     margin-top: -10px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: #dee2e6;
     border-radius: 8px;
     border: 1px solid black;
     font-weight: 1000;
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
     text-decoration: none;
-    color: darkpurple;
 }
 
 
@@ -108,7 +110,7 @@ a {
 }
 
 .result-box {
-    background: rgba(255, 255, 255, 0.82);
+    background-color: #dee2e6;
     backdrop-filter: blur(12px);
     padding: 20px;
     margin: 30px auto;
@@ -142,4 +144,18 @@ a {
     font-weight: 700;
     letter-spacing: 1px;
     margin: 8px 0;
+}
+
+.front-Link1 {
+    position: fixed;
+    top: 180px;
+    left: 760px;
+    background-color: #dee2e6;
+}
+
+.front-Link2 {
+    position: fixed;
+    top: 180px;
+    left: 480px;
+    background-color: #dee2e6;
 }
