@@ -97,6 +97,7 @@ a {
     transition: scale 0.5s ease-in-out, filter 0.3s ease-in-out;
     text-decoration: none;
     z-index: 1;
+    color: #4A1985;
 }
 
 
@@ -158,6 +159,8 @@ a {
     left: 760px;
     background-color: #dee2e6;
     z-index: 1;
+    color: #4A1985;
+    text-decoration: none;
 }
 
 .front-Link2 {
@@ -166,4 +169,6 @@ a {
     left: 480px;
     background-color: #dee2e6;
     z-index: 1;
+    color: #4A1985;
+    text-decoration: none;
 }

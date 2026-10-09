@@ -14,10 +14,13 @@ def dna_to_protein(seq):
     if len(seq) == 0:
         return "Error: Please enter a dna sequence."
 
-    # Check that the sequences contains only A, C, G, and T.
+    # Double check that the user didn't accidentally paste a sequence that doesnt contain A, C, G, and T.
+    allowed_letters = {"A","C", "G", "T"}
+    clean_list_text = ", ".join(sorted(allowed_letters))
+
     for base in seq:
-        if base not in "ACGT":
-            return "Error: DNA can only contain A, C, G, and T."
+        if base not in allowed_letters:
+            return f"Error: DNA can only contain {clean_list_text}."
 
     # Codon dictionary
     # Each codon has a matching amino acid.
@@ -48,7 +51,8 @@ def dna_to_protein(seq):
     }
 
     # Find (ATG) start codon.
-    start_position = seq.find("ATG")
+    start_Codon = "ATG"
+    start_position = seq.find(start_Codon)
 
     if start_position == -1:
         return "Error: No start codon (ATG) was found."
@@ -90,28 +94,29 @@ def back_translate_to_dna(aa_sequence: str) -> list:
 
     # List of protein to dna possibilities.
     back_translate_code = {
-        'A': ['GCA', 'GCC', 'GCG', 'GCT'],
-        'C': ['TGT', 'TGC'],
-        'D': ['GAC', 'GAT'],
-        'E': ['GAG', 'GAA'],
-        'F': ['TTT', 'TTC'],
-        'G': ['GGT', 'GGG', 'GGA', 'GGC'],
-        'H': ['CAT', 'CAC'],
-        'I': ['ATC', 'ATA', 'ATT'],
-        'K': ['AAG', 'AAA'],
-        'L': ['CTT', 'CTG', 'CTA', 'CTC', 'TTA', 'TTG'],
-        'M': ['ATG'],
-        'N': ['AAC', 'AAT'],
-        'P': ['CCT', 'CCG', 'CCA', 'CCC'],
-        'Q': ['CAA', 'CAG'],
-        'R': ['AGG', 'AGA', 'CGA', 'CGC', 'CGG', 'CGT'],
-        'S': ['AGC', 'AGT', 'TCT', 'TCG', 'TCC', 'TCA'],
-        'T': ['ACA', 'ACG', 'ACT', 'ACC'],
-        'V': ['GTA', 'GTC', 'GTG', 'GTT'],
-        'W': ['TGG'],
-        'Y': ['TAT', 'TAC'],
-        '_': ['TAA', 'TGA', 'TAG']
+        "A": ["GCA", "GCC", "GCG", "GCT"],
+        "C": ["TGT", "TGC"],
+        "D": ["GAC", "GAT"],
+        "E": ["GAG", "GAA"],
+        "F": ["TTT", "TTC"],
+        "G": ["GGT", "GGG", "GGA", "GGC"],
+        "H": ["CAT", "CAC"],
+        "I": ["ATC", "ATA", "ATT"],
+        "K": ["AAG", "AAA"],
+        "L": ["CTT", "CTG", "CTA", "CTC", "TTA", "TTG"],
+        "M": ["ATG"],
+        "N": ["AAC", "AAT"],
+        "P": ["CCT", "CCG", "CCA", "CCC"],
+        "Q": ["CAA", "CAG"],
+        "R": ["AGG", "AGA", "CGA", "CGC", "CGG", "CGT"],
+        "S": ["AGC", "AGT", "TCT", "TCG", "TCC", "TCA"],
+        "T": ["ACA", "ACG", "ACT", "ACC"],
+        "V": ["GTA", "GTC", "GTG", "GTT"],
+        "W": ["TGG"],
+        "Y": ["TAT", "TAC"],
+        "_": ["TAA", "TGA", "TAG"]
     }
+
 
     # Makes invaid protein cause an eror message.
     # Check that the user entered something.
@@ -121,14 +126,14 @@ def back_translate_to_dna(aa_sequence: str) -> list:
 
     for aa in aa_sequence:
         if aa not in back_translate_code:
-            return f"Error: '{aa}' is not a valid protein symbol."
+            return f"Error: \"{aa}\" is not a valid protein symbol."
 
     # This looks for codon for amino acid.
     list_of_list_of_codons = [back_translate_code[aa] for aa in aa_sequence]
 
     # This will get all of the combinations for the dna..
     list_of_combinations = [
-    ''.join(combination)
+    "".join(combination)
     for combination in it.product(*list_of_list_of_codons)
     ]
 
