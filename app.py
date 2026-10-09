@@ -14,10 +14,10 @@ def dna_to_protein(seq):
     if len(seq) == 0:
         return "Error: Please enter a dna sequence."
 
-    # Double check that the user didn't accidentally paste a sequence that doesnt contain A, C, G, and T.
     allowed_letters = {"A","C", "G", "T"}
     clean_list_text = ", ".join(sorted(allowed_letters))
 
+    # Double check that the user didn't accidentally paste a sequence that doesnt contain A, C, G, and T.
     for base in seq:
         if base not in allowed_letters:
             return f"Error: DNA can only contain {clean_list_text}."
