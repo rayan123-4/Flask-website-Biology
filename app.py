@@ -7,20 +7,22 @@ app = Flask(__name__)
 # Function to translate DNA into protein.
 def dna_to_protein(seq):
     # Makes the input uppercase and removing spaces.
-    seq = seq.upper().strip().replace(" ", "")
-    seq = seq.replace("\n", "").replace("\r", "")
+    seq = seq.upper()
+    seq = seq.strip()
+    seq = seq.replace(" ", "")
+    seq = seq.replace("\n", "")
+    seq = seq.replace("\r", "")
 
     # Check that the user entered something.
     if len(seq) == 0:
         return "Error: Please enter a dna sequence."
 
     allowed_letters = {"A","C", "G", "T"}
-    clean_list_text = ", ".join(sorted(allowed_letters))
 
     # Double check that the user didn't accidentally paste a sequence that doesnt contain A, C, G, and T.
     for base in seq:
         if base not in allowed_letters:
-            return f"Error: DNA can only contain {clean_list_text}."
+            return f"Error: DNA can only contain A, C, G, and T."
 
     # Codon dictionary
     # Each codon has a matching amino acid.
@@ -58,30 +60,36 @@ def dna_to_protein(seq):
         return "Error: No start codon (ATG) was found."
 
     # Storing the amino acid in an empty list.
-    protein_chain = []
+    protein_chain = ""
+
+    new_seq = seq[start_position:]
 
     # Reading the DNA 3 bases/letters at a time.
-    for i in range(start_position, len(seq) - 2, 3):
+    if len(new_seq)%3 == 0:
+        for i in range(0, len(new_seq), 3):
 
-        # Gets the current codon from the sequence.
-        codon = seq[i:i + 3]
+            # Gets the current codon from the sequence.
+            codon = new_seq[i:i + 3]
 
-        # Finds the amino acid for this codon.
-        amino_acid = codon_dictionary[codon]
+            # Finds the amino acid for this codon.
+            amino_acid = codon_dictionary[codon]
 
-        # Stops translating at a stop codon.
-        if amino_acid == "_":
-            break
+            # Stops translating at a stop codon.
+            if amino_acid == "_":
+                break
 
-        # Adds the amino acid to the protein chain.
-        protein_chain.append(amino_acid)
+            # Adds the amino acid to the protein chain.
+            protein_chain += amino_acid
+    else:
+        # Error message if the sequence length is not valid.
+        return "Error: DNA sequence length is not a multiple of 3."
 
     # Check that a protein was made.
     if len(protein_chain) == 0:
         return "Error: No complete protein was found."
 
     # Join the amino acids together.
-    return "-".join(protein_chain)
+    return protein_chain
 
 # Function to translate Protein into DNA.
 def back_translate_to_dna(aa_sequence: str) -> list:
