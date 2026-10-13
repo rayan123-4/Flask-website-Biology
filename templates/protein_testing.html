@@ -47,8 +47,14 @@
         const input = document.getElementById("protein_sequence");
         input.classList.add("error");
     </script>
+    {% endif %}
 
-{% endif %}
+    {% if dna_result and not (dna_result is string and dna_result.startswith("Error:")) %}
+    <script>
+        const input = document.getElementById("protein_sequence");
+        input.classList.add("success");
+    </script>
+    {% endif %}
 
 {% endif %}
 

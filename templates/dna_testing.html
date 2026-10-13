@@ -36,10 +36,16 @@
         const input = document.getElementById("dna_sequence");
         input.classList.add("error");
     </script>
-
     {% endif %}
 
+    {% if protein_result and not protein_result.startswith("Error:") %}
+    <script>
+        const input = document.getElementById("dna_sequence");
+        input.classList.add("success");
+    </script>
     {% endif %}
+
+{% endif %}
 
   <br>
 

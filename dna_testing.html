@@ -46,6 +46,8 @@
             // Stops page from refreshing.
             event.preventDefault();
 
+            const userPressed = true;
+
             // Get dna from input.
             const dna = document.getElementById("dna_sequence").value;
 
@@ -82,12 +84,9 @@
         if (proteinResult.protein_result[0].startsWith("Error:")) {
             // get dna input
               const input = document.getElementById("dna_sequence")
-
               input.classList.remove("error");
-
               // Animation can happen multiple times now
               void input.offsetWidth;
-
               input.classList.add("error");
 
         } else {
@@ -96,6 +95,13 @@
             }
 
         });
+
+        // For if no error and success
+        if (userPressed && !proteinResult.protein_result[0].startsWith("Error:")) {
+            // Remove red and add green
+            input.classList.remove("error")
+            input.classList.add("success")
+        }
 
 
     </script>

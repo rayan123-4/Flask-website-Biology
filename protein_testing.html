@@ -46,6 +46,8 @@
             // Stops page from refreshing.
             event.preventDefault();
 
+            const userPressed = true;
+
             // Get protein from input.
             const protein = document.getElementById("protein_sequence").value;
 
@@ -97,6 +99,13 @@
             }
 
 });
+
+        // For if no error and success
+        if (userPressed && !(dnaResult.dna_result.startsWith("Error:")) {
+            // Remove red and add green
+            input.classList.remove("error")
+            input.classList.add("success")
+        }
 
     </script>
 
