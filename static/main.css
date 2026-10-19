@@ -180,8 +180,9 @@ a {
 .front-Links {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
 }
 
 .front-Link1, .front-Link2 {
